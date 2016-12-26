@@ -1,0 +1,95 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Project:</h2>
+\\MACBOOKPRO-11C7\“nicek”的公共文件夹\servo_controller\servo_controller.uvproj
+Project File Date:  12/26/2016
+
+<h2>Output:</h2>
+Rebuild target 'Target 1'
+compiling lcm.c...
+SRC\LCM\CODETAB.C(1): warning C318: can't open file 'codetab.h'
+SRC\LCM\I2C/I2C.C(7): error C202: 'P1': undefined identifier
+SRC\LCM\I2C/I2C.C(8): error C202: 'P2': undefined identifier
+SRC\LCM\I2C/I2C.C(21): error C202: 'iic_scl': undefined identifier
+SRC\LCM\I2C/I2C.C(23): error C202: 'iic_scl': undefined identifier
+SRC\LCM\I2C/I2C.C(32): error C202: 'iic_scl': undefined identifier
+SRC\LCM\I2C/I2C.C(36): error C202: 'iic_scl': undefined identifier
+SRC\LCM\I2C/I2C.C(45): error C202: 'iic_scl': undefined identifier
+SRC\LCM\I2C/I2C.C(67): error C202: 'iic_scl': undefined identifier
+SRC\LCM\I2C/I2C.C(69): error C202: 'iic_scl': undefined identifier
+SRC\LCM\I2C/I2C.C(74): error C202: 'iic_scl': undefined identifier
+SRC\LCM\I2C/I2C.C(80): error C202: 'iic_scl': undefined identifier
+SRC\LCM\I2C/I2C.C(134): error C202: 'iic_scl': undefined identifier
+SRC\LCM\I2C/I2C.C(139): error C202: 'iic_scl': undefined identifier
+SRC\LCM\LCM.C(8): error C202: 'LCM_ADDR': undefined identifier
+SRC\LCM\LCM.C(17): error C202: 'LCM_ADDR': undefined identifier
+SRC\LCM\LCM.C(38): error C202: 'X_WIDTH': undefined identifier
+SRC\LCM\LCM.C(51): error C202: 'Brightness': undefined identifier
+compiling delay.c...
+compiling main.c...
+Target not created
+Rebuild target 'Target 1'
+compiling lcm.c...
+SRC\LCM\CODETAB.C(1): warning C318: can't open file 'codetab.h'
+SRC\LCM\I2C/I2C.C(7): error C202: 'P1': undefined identifier
+SRC\LCM\I2C/I2C.C(8): error C202: 'P2': undefined identifier
+SRC\LCM\I2C/I2C.C(19): error C202: 'iic_sda': undefined identifier
+SRC\LCM\I2C/I2C.C(21): error C202: 'iic_scl': undefined identifier
+SRC\LCM\I2C/I2C.C(23): error C202: 'iic_scl': undefined identifier
+SRC\LCM\I2C/I2C.C(30): error C202: 'iic_sda': undefined identifier
+SRC\LCM\I2C/I2C.C(32): error C202: 'iic_scl': undefined identifier
+SRC\LCM\I2C/I2C.C(34): error C202: 'iic_sda': undefined identifier
+SRC\LCM\I2C/I2C.C(36): error C202: 'iic_scl': undefined identifier
+SRC\LCM\I2C/I2C.C(43): error C202: 'iic_sda': undefined identifier
+SRC\LCM\I2C/I2C.C(45): error C202: 'iic_scl': undefined identifier
+SRC\LCM\I2C/I2C.C(47): error C202: 'iic_sda': undefined identifier
+SRC\LCM\I2C/I2C.C(62): error C202: 'iic_sda': undefined identifier
+SRC\LCM\I2C/I2C.C(64): error C202: 'iic_sda': undefined identifier
+SRC\LCM\I2C/I2C.C(67): error C202: 'iic_scl': undefined identifier
+SRC\LCM\I2C/I2C.C(69): error C202: 'iic_scl': undefined identifier
+SRC\LCM\I2C/I2C.C(72): error C202: 'iic_sda': undefined identifier
+SRC\LCM\I2C/I2C.C(74): error C202: 'iic_scl': undefined identifier
+SRC\LCM\I2C/I2C.C(80): error C202: 'iic_scl': undefined identifier
+SRC\LCM\I2C/I2C.C(130): error C202: 'iic_sda': undefined identifier
+SRC\LCM\I2C/I2C.C(134): error C202: 'iic_scl': undefined identifier
+SRC\LCM\I2C/I2C.C(137): error C202: 'iic_sda': undefined identifier
+SRC\LCM\I2C/I2C.C(139): error C202: 'iic_scl': undefined identifier
+SRC\LCM\LCM.C(8): error C202: 'LCM_ADDR': undefined identifier
+SRC\LCM\LCM.C(17): error C202: 'LCM_ADDR': undefined identifier
+SRC\LCM\LCM.C(38): error C202: 'X_WIDTH': undefined identifier
+SRC\LCM\LCM.C(51): error C202: 'Brightness': undefined identifier
+compiling delay.c...
+compiling main.c...
+Target not created
+Rebuild target 'Target 1'
+compiling lcm.c...
+SRC\LCM\CODETAB.C(1): warning C318: can't open file 'codetab.h'
+SRC\LCM\LCM.C(8): error C202: 'LCM_ADDR': undefined identifier
+SRC\LCM\LCM.C(17): error C202: 'LCM_ADDR': undefined identifier
+SRC\LCM\LCM.C(38): error C202: 'X_WIDTH': undefined identifier
+SRC\LCM\LCM.C(51): error C202: 'Brightness': undefined identifier
+compiling delay.c...
+compiling main.c...
+Target not created
+Rebuild target 'Target 1'
+compiling lcm.c...
+SRC\LCM\CODETAB.C(1): warning C318: can't open file 'codetab.h'
+compiling delay.c...
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?IIC_RECB?LCM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCM_INIT?LCM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LCM_WRITE?LCM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYUS?DELAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAYMS?DELAY
+Program Size: data=16.3 xdata=0 code=2254
+creating hex file from ".\obj\servo_controller"...
+--- Error: failed to execute 'C:\KeilMDK\C51\BIN\OH51.EXE'
+".\obj\servo_controller" - 1 Error(s), 6 Warning(s).
