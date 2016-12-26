@@ -36,18 +36,53 @@ sbit key_p100 = P3^3;
 unsigned char mk[7]={150, 150, 150, 150, 150, 150, 150};	//保存7个通道的脉宽，单位是10us
 unsigned char focus = 1;	//当前焦点通道，1~7
 
-unsigned char disp_tick = 0;	//定时器通过此变量通知主循环进行显示更新
+//以下两个变量用于定时器发送标志给主循环刷新显示。本来是让主循环每次全部刷新，那样做刷新速度很慢，所以分开刷新
+unsigned char flag_disp_focus=0;	//1-focus发生了变化，需要刷新
+unsigned char flag_disp_mk=0;	//标志当前通道的脉宽是否发生了变化，1-发生了变化，需要刷新
+
+void refresh_focus()	//刷新当前焦点，包括显示器和led
+{
+    unsigned char i;
+    unsigned char str[2];
+    for(i=0; i<7; i++)
+    {
+	if(i+1 == focus)
+	    str[0]='>';
+	else
+	    str[0]=' ';
+	str[1] = '\0';
+	lcm_write((i%2)*8, i/2, str);
+    }
+
+    P0 &= 0x80;
+    P0 |= 0x01<<(7-focus);	//点亮当前focus的led
+}
+void refresh_mk()	//刷新当前焦点的脉宽显示
+{
+    unsigned char i;
+    unsigned char str[8];
+    i=focus-1;
+    str[0] = 0x30+i+1;
+    str[1] = '-';
+    str[2] = 0x30 + mk[i]/100;
+    str[3] = 0x30 + (mk[i]%100)/10;
+    str[4] = 0x30 + mk[i]%10;
+    str[5] = '0';
+    str[6] = ' ';
+    str[7] = '\0';
+    lcm_write((i%2)*8+1, i/2, str);
+}
 
 void task_key1()	//5ms调用一次
 {
     static bit key_ch1_last=1, key_ch2_last=1, key_ch3_last=1, key_ch4_last=1, key_ch5_last=1, key_ch6_last=1, key_ch7_last=1;
-    if(key_ch1_last == 1 && key_ch1 ==0)	{focus = 1;}
-    else if(key_ch2_last == 1 && key_ch2 ==0)	{focus = 2;}
-    else if(key_ch3_last == 1 && key_ch3 ==0)	{focus = 3;}
-    else if(key_ch4_last == 1 && key_ch4 ==0)	{focus = 4;}
-    else if(key_ch5_last == 1 && key_ch5 ==0)	{focus = 5;}
-    else if(key_ch6_last == 1 && key_ch6 ==0)	{focus = 6;}
-    else if(key_ch7_last == 1 && key_ch7 ==0)	{focus = 7;}
+    if(key_ch1_last == 1 && key_ch1 ==0)	{focus = 1;flag_disp_focus=1;}
+    else if(key_ch2_last == 1 && key_ch2 ==0)	{focus = 2;flag_disp_focus=1;}
+    else if(key_ch3_last == 1 && key_ch3 ==0)	{focus = 3;flag_disp_focus=1;}
+    else if(key_ch4_last == 1 && key_ch4 ==0)	{focus = 4;flag_disp_focus=1;}
+    else if(key_ch5_last == 1 && key_ch5 ==0)	{focus = 5;flag_disp_focus=1;}
+    else if(key_ch6_last == 1 && key_ch6 ==0)	{focus = 6;flag_disp_focus=1;}
+    else if(key_ch7_last == 1 && key_ch7 ==0)	{focus = 7;flag_disp_focus=1;}
     key_ch1_last = key_ch1;
     key_ch2_last = key_ch2;
     key_ch3_last = key_ch3;
@@ -63,18 +98,27 @@ void task_key2()	//5ms一次
 
     if(key_m100_last == 1 && key_m100 == 0)
     {
-	if(mk[focus-1]>=10) mk[focus-1]-=10;	
+	if(mk[focus-1]>=10)
+	{
+	    mk[focus-1]-=10;
+	    flag_disp_mk = 1;
+	}
     }
     if(key_reset_last == 1 && key_reset == 0)
     {
 	mk[focus-1] = 150;
+	flag_disp_mk = 1;
     }
 
     if(key_m10 ==0)
     {
 	if(key_m10_last == 1)
 	{
-	    if(mk[focus-1]!=0)	mk[focus-1]--;
+	    if(mk[focus-1]!=0)
+	    {
+		mk[focus-1]--;
+		flag_disp_mk = 1;
+	    }
 	}
 	else
 	{
@@ -83,7 +127,11 @@ void task_key2()	//5ms一次
 		static unsigned char continue_num=0;
 		if(continue_num == 0)
 		{
-		    if(mk[focus-1]!=0) mk[focus-1]--;
+		    if(mk[focus-1]!=0)
+		    {
+			mk[focus-1]--;
+			flag_disp_mk = 1;
+		    }
 		}
 		continue_num++;
 		if(continue_num == 20)	//连按增加间隔时间
@@ -109,14 +157,22 @@ void task_key3()
     
     if(key_p100_last == 1 && key_p100 == 0)
     {
-	if(mk[focus-1]<=245) mk[focus-1]+=10;
+	if(mk[focus-1]<=245)
+	{
+	    mk[focus-1]+=10;
+	    flag_disp_mk = 1;
+	}
     }
 	
     if(key_p10 ==0)
     {
 	if(key_p10_last == 1)
 	{
-	    if(mk[focus-1]!=255) mk[focus-1]++;
+	    if(mk[focus-1]!=255)
+	    {
+		mk[focus-1]++;
+		flag_disp_mk = 1;
+	    }
 	}
 	else
 	{
@@ -125,7 +181,11 @@ void task_key3()
 		static unsigned char continue_num=0;
 		if(continue_num == 0)
 		{
-		    if(mk[focus-1]!=255) mk[focus-1]++;
+		    if(mk[focus-1]!=255)
+		    {
+			mk[focus-1]++;
+			flag_disp_mk = 1;
+		    }
 		}
 		continue_num++;
 		if(continue_num == 20)	//连按增加间隔时间
@@ -184,16 +244,6 @@ void t0 () interrupt 1	//10us 一次
 	    task_key2();
 	else if(num1 == 150)	//5ms一次，进行按键扫描
 	    task_key3();
-	else if(num1 == 200)
-	{
-	    static unsigned char num2 = 0;
-	    num2++;
-	    if(num2 == 20)	//进行显示刷新
-	    {
-		num2 = 0;
-		disp_tick = 1;
-	    }
-	}
     }
     test =0;
 }
@@ -222,32 +272,28 @@ void main()
     lcm_clean();
     delay5(10);
 
+    // 刷新全部脉宽显示
+    {
+	unsigned char i;
+	for(i=0;i<7;i++)
+	{
+	    focus=i+1;
+	    refresh_mk();
+	}
+    }
+    focus = 1;
+    refresh_focus();
     while(1)
     {
-	if(disp_tick)	//50ms调用一次
+	if(flag_disp_focus)
 	{
-	    unsigned char str[9];
-	    unsigned char i;
-	    disp_tick = 0;
-
-	    P0 &= 0x80;
-	    P0 |= 0x01<<(7-focus);	//点亮当前focus的led
-	    for(i=0; i<7; i++)
-	    {
-		if(i+1 == focus)
-		    str[0]='>';
-		else
-		    str[0]=' ';
-		str[1] = 0x30+i+1;
-		str[2] = '-';
-		str[3] = 0x30 + mk[i]/100;
-		str[4] = 0x30 + (mk[i]%100)/10;
-		str[5] = 0x30 + mk[i]%10;
-		str[6] = '0';
-		str[7] = ' ';
-		str[8] = '\0';
-		lcm_write((i%2)*8, i/2, str);
-	    }
+	    flag_disp_focus = 0;
+	    refresh_focus();
+	}
+	if(flag_disp_mk)
+	{
+	    flag_disp_mk = 0;
+	    refresh_mk();
 	}
     }
 }
