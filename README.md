@@ -1,6 +1,6 @@
 # servo_controller
 通用舵机控制器（PWM信号发生器）。  
-![servo.jpg](https://github.com/nicekwell/servo_controller/raw/master/image/servo.jpg)
+![servo.jpg](https://github.com/nicekwell/servo_controller/raw/master/servo.jpg)
 
 # 功能
 可以产生7路PWM信号。  
