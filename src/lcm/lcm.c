@@ -1,24 +1,16 @@
 #include <lcm.h>
+#include <i2c.h>
 #include"delay.h"
 #include "codetab.c"
-#include "i2c/i2c.c"
 
 static void lcm_writeDat(unsigned char dat)//往lcm写入一个字节数据
 {
-	iic_start();
-	iic_sendB(LCM_ADDR);
-	iic_sendB(0x40);//write data
-	iic_sendB(dat);
-	iic_stop();
+    i2c_writeReg8(LCM_ADDR>>1, 0x40, dat);
 }
 
-static void lcm_writeCmd(unsigned cmd)//往lcm写入命令
+static void lcm_writeCmd(unsigned char cmd)//往lcm写入命令
 {
-	iic_start();
-	iic_sendB(LCM_ADDR);
-	iic_sendB(0x00);//write command
-	iic_sendB(cmd);
-	iic_stop();
+    i2c_writeReg8(LCM_ADDR>>1, 0x00, cmd);
 }
 
 static void lcm_setPos(unsigned char x,unsigned char y)//设置坐标
