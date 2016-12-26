@@ -76,9 +76,12 @@ void lcm_init()
 	lcm_setPos(0,0);
 }
 
-void lcm_write(unsigned char x, unsigned char y, unsigned char *chr)//写入8*16字符，输入坐标和ascii码的字符串即可
+void lcm_write(unsigned char px, unsigned char py, unsigned char *chr)//写入8*16字符，输入坐标和ascii码的字符串即可
 {
 	unsigned char c=0,i=0,j=0;
+	unsigned char x, y;
+	x = px*8;
+	y = py*2;
 	while(chr[j] != '\0')
 	{
 		c=chr[j]-32;
