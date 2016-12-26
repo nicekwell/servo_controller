@@ -1,16 +1,15 @@
 #include <lcm.h>
 #include <i2c.h>
-#include"delay.h"
 #include "codetab.c"
 
+/*这两个函数和I2C接口相关。*/
 static void lcm_writeDat(unsigned char dat)//往lcm写入一个字节数据
 {
-    i2c_writeReg8(LCM_ADDR>>1, 0x40, dat);
+    i2c_writeReg8(LCM_ADDR>>1, 0x40, dat);	//0x40表示后面写入的是数据
 }
-
 static void lcm_writeCmd(unsigned char cmd)//往lcm写入命令
 {
-    i2c_writeReg8(LCM_ADDR>>1, 0x00, cmd);
+    i2c_writeReg8(LCM_ADDR>>1, 0x00, cmd);	//0x00表示后面写入的是命令
 }
 
 static void lcm_setPos(unsigned char x,unsigned char y)//设置坐标
@@ -35,7 +34,6 @@ void lcm_clean()//清屏
 
 void lcm_init()
 {
-	delay5(10);
 	lcm_writeCmd(0xae);//--turn off oled panel
 	lcm_writeCmd(0x00);//---set low column address
 	lcm_writeCmd(0x10);//---set high column address
@@ -68,7 +66,11 @@ void lcm_init()
 	lcm_setPos(0,0);
 }
 
-void lcm_write(unsigned char px, unsigned char py, unsigned char *chr)//写入8*16字符，输入坐标和ascii码的字符串即可
+/*
+  写入8*16字符，输入坐标和ascii码的字符串即可。
+  坐标是字符的坐标，一个12864屏可容纳 16*4 个字符，坐标就是按照4行16列计算的。
+ */
+void lcm_write(unsigned char px, unsigned char py, unsigned char *chr)
 {
 	unsigned char c=0,i=0,j=0;
 	unsigned char x, y;
