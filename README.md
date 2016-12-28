@@ -2,6 +2,8 @@
 通用舵机控制器（PWM信号发生器）。  
 ![servo.jpg](https://github.com/nicekwell/servo_controller/raw/master/servo.jpg)
 
+优酷视频地址：<http://v.youku.com/v_show/id_XMTg4NzQ0MDA5Mg==.html>
+
 # 功能
 可以产生7路PWM信号。  
 周期固定为20ms，脉宽可调，精度为10us。  
@@ -46,5 +48,11 @@ led7		| P0.0 |
 开关+100	| P3.3 |
 显示屏SCL	| P0.7 |
 显示屏SDA	| P1.7 |
+
+# 程序结构
+定时器10us一次中断，在定时器中断中完成 7路pwm通道脉宽控制 和 按键扫描 任务，其中按键扫描分成了三个函数分别进行。（广告：想了解这样做的原因，以及更多单片机编程结构相关的内容请访问<http://nicekwell.net/pages/dan-pian-ji-bian-cheng.html>）
+主进程完成显示屏显示任务。
+
+定时器进程检测到按键操作后，会发送标志给主进程刷新显示。
 
 
