@@ -266,6 +266,9 @@ void main()
     P0M0=0x7F;
     P0M1=0x00;
     P0=0x00;
+    //初始化P1.0~P1.6为推挽输出
+    P1M0=0x7F;
+    P1M1=0x00;
 
     lcm_init();
     delay5(10);
